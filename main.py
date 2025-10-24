@@ -3,7 +3,9 @@ Main.py
 The main file holds menu operations for the game including sound, settings, leaderboard, tutorial, and board customization.
 
 """
+import webbrowser
 import pygame
+import redditwarp.SYNC
 from SecondMenu import SecondMenu
 from constants import BLUE, YELLOW, RED, GREEN
 from ScoreManager import ScoreManager
@@ -25,6 +27,10 @@ current_track = 0
 SONG_END = pygame.USEREVENT + 1
 second_menu = SecondMenu(tracks)
 
+# Reddit Integration
+client = redditwarp.SYNC.Client()
+reddit_top_post = next(client.p.subreddit.pull.top('Temple', amount=1, time='day'), None)
+
 
 def music_loop():
     """
@@ -44,11 +50,17 @@ game_title = "Checkers+"
 message = "Checkers with a twist! For all ages and skill levels!"
 credits1 = "Developed by Wander Cerda-Torres, Barry Lin,"
 credits2 = "Nathan McCourt, Jonathan Stanczak, and Geonhee Yu"
+latest_news = reddit_top_post.title
+link = reddit_top_post.permalink
+
+
 background_image = pygame.image.load("checkers.jpg")
 background_image = pygame.transform.scale(background_image, (Width, Height))  
 title_font = pygame.font.Font(None, 64)
 message_font = pygame.font.Font(None, 32)
 credits_font = pygame.font.Font(None, 25)
+reddit_title_font = pygame.font.Font(None, 50)
+reddit_link_font = pygame.font.Font(None, 25)
 
 # Title text
 title_text = title_font.render(game_title, True, (255, 255, 255))
@@ -59,8 +71,17 @@ message_rect = message_text.get_rect(center=(Width // 2, 55))
 # Credits text
 credits_text1 = credits_font.render(credits1, True, (255, 255, 255))
 credits_rect1 = credits_text1.get_rect(center=(Width // 2, 650))
+
 credits_text2 = credits_font.render(credits2, True, (255, 255, 255))
 credits_rect2 = credits_text2.get_rect(center=(Width // 2, 670))
+
+
+reddit_title_text = reddit_title_font.render(latest_news,True,(255/2-255/4,255/2-255/4,255/2-255/4))
+reddit_title_rect = reddit_title_text.get_rect(center=(Width//2,130))
+
+reddit_link_text = reddit_link_font.render(link,True,(255/2-255/4,255/2-255/4,255/2-255/4))
+reddit_link_rect = reddit_link_text.get_rect(center=(Width//2,150))
+
 
 second_menu_instance = SecondMenu(tracks)
 def main():
@@ -85,6 +106,8 @@ def main():
                     settings()
                 elif buttons[4].collidepoint(event.pos): # if mouse is clicked on leaderboard button (not yet implemented)
                     board_customization()
+                elif reddit_link_rect.collidepoint(event.pos):
+                    webbrowser.open(link)
                 # Check if the current song has finished, loop to next song
             elif event.type == SONG_END:
                 music_loop()
@@ -96,6 +119,8 @@ def main():
         screen.blit(message_text, message_rect)
         screen.blit(credits_text1, credits_rect1)
         screen.blit(credits_text2, credits_rect2)
+        screen.blit(reddit_title_text, reddit_title_rect)
+        screen.blit(reddit_link_text, reddit_link_rect)
         
         menu_buttons()
         pygame.display.flip()
