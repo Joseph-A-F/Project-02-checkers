@@ -48,7 +48,7 @@ class SecondMenu:
         self.background_music = BackgroundMusic([track])
     
     color = RED
-    player_1_color = BLUE
+    player_1_color = RED
     player_2_color = WHITE
     def start_game_menu(self):
         """

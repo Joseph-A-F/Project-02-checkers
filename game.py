@@ -25,11 +25,11 @@ class Game:
         self.player_2_color = player_2_color
         self.selected = None
         self.board = Main_Board(player_1_color,player_2_color,self.color)
-        self.turn = RED
+        self.turn = player_1_color
         self.valid_moves = {}
         self.font = pygame.font.Font(None, 36)  # Font for rendering text
         self.text_color = WHITE  # Text color
-        self.text_urgent_color = RED  # Text color when time is running out
+        self.text_urgent_color = color  # Text color when time is running out
         self.screen = pygame.display.set_mode((1000, 700))
         self.player1 = player1
         self.player2 = player2
