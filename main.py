@@ -538,6 +538,43 @@ def board_customization():
     green_square_rect = pygame.Rect(yellow_square_rect.right + 20, yellow_square_rect.top, square_side, square_side)
     pygame.draw.rect(board_customization_screen, GREEN, green_square_rect)  # Green square
 
+    # Player One Chess Piece Color 
+    player_1_color_text = board_color_font.render("Player 1 Color", True, (255, 255, 255))
+    player_1_text_rect = player_1_color_text.get_rect(center=(Width // 2 - 200, Height // 3 + 150)) 
+    
+    player_1_box_rect = pygame.Rect(player_1_text_rect.left-20,player_1_text_rect.top-10,player_1_text_rect.width+40,player_1_text_rect.height+20)
+    pygame.draw.rect(board_customization_screen,(128,128,128),player_1_box_rect)
+    board_customization_screen.blit(player_1_color_text,player_1_text_rect)
+    
+    player_1_red_square_rect = pygame.Rect(player_1_text_rect.right + 50, player_1_text_rect.centery - square_side // 2, square_side, square_side)
+    pygame.draw.rect(board_customization_screen, RED, player_1_red_square_rect)  # Red square
+    player_1_blue_square_rect = pygame.Rect(player_1_red_square_rect.right + 20, player_1_red_square_rect.top, square_side, square_side)
+    pygame.draw.rect(board_customization_screen, BLUE, player_1_blue_square_rect)  # Blue square
+    player_1_yellow_square_rect = pygame.Rect(player_1_blue_square_rect.right + 20, player_1_blue_square_rect.top, square_side, square_side)
+    pygame.draw.rect(board_customization_screen, YELLOW, player_1_yellow_square_rect)  # Yellow square
+    player_1_green_square_rect = pygame.Rect(player_1_yellow_square_rect.right + 20, player_1_yellow_square_rect.top, square_side, square_side)
+    pygame.draw.rect(board_customization_screen, GREEN, player_1_green_square_rect)  # Green square
+
+    
+    # Player Two Two Piece Color 
+    player_2_color_text = board_color_font.render("Player 2 Color", True, (255, 255, 255))
+    player_2_text_rect = player_2_color_text.get_rect(center=(Width // 2 - 200, Height // 3 + 220)) 
+    
+    player_2_box_rect = pygame.Rect(player_2_text_rect.left-20,player_2_text_rect.top-10,player_2_text_rect.width+40,player_2_text_rect.height+20)
+    pygame.draw.rect(board_customization_screen,(128,128,128),player_2_box_rect)
+    board_customization_screen.blit(player_2_color_text,player_2_text_rect)
+    
+ 
+    player_2_red_square_rect = pygame.Rect(player_2_text_rect.right + 50, player_2_text_rect.centery - square_side // 2, square_side, square_side)
+    pygame.draw.rect(board_customization_screen, RED, player_2_red_square_rect)  # Red square
+    player_2_blue_square_rect = pygame.Rect(player_2_red_square_rect.right + 20, player_2_red_square_rect.top, square_side, square_side)
+    pygame.draw.rect(board_customization_screen, BLUE, player_2_blue_square_rect)  # Blue square
+    player_2_yellow_square_rect = pygame.Rect(player_1_blue_square_rect.right + 20, player_2_blue_square_rect.top, square_side, square_side)
+    pygame.draw.rect(board_customization_screen, YELLOW, player_2_yellow_square_rect)  # Yellow square
+    player_2_green_square_rect = pygame.Rect(player_2_yellow_square_rect.right + 20, player_2_yellow_square_rect.top, square_side, square_side)
+    pygame.draw.rect(board_customization_screen, GREEN, player_2_green_square_rect)  # Green square
+
+   
     pygame.display.flip()
 
     while True:
@@ -555,6 +592,22 @@ def board_customization():
                 if yellow_square_rect.collidepoint(event.pos): # make board yellow
                     second_menu_instance.color = YELLOW
                 if green_square_rect.collidepoint(event.pos): # make board green
+                    second_menu_instance.color = GREEN
+                if player_1_red_square_rect.collidepoint(event.pos): # make player_1 red
+                    second_menu_instance.color = RED
+                if player_1_blue_square_rect.collidepoint(event.pos): # make player_1 blue
+                    second_menu_instance.color = BLUE
+                if player_1_yellow_square_rect.collidepoint(event.pos): # make player_1 yellow
+                    second_menu_instance.color = YELLOW
+                if player_1_green_square_rect.collidepoint(event.pos): # make player_1 green
+                    second_menu_instance.color = GREEN
+                if player_2_red_square_rect.collidepoint(event.pos): # make player_2 red
+                    second_menu_instance.color = RED
+                if player_2_blue_square_rect.collidepoint(event.pos): # make player_2 blue
+                    second_menu_instance.color = BLUE
+                if player_2_yellow_square_rect.collidepoint(event.pos): # make player_2 yellow
+                    second_menu_instance.color = YELLOW
+                if player_2_green_square_rect.collidepoint(event.pos): # make player_2 green
                     second_menu_instance.color = GREEN
             elif event.type == SONG_END:
                 music_loop()

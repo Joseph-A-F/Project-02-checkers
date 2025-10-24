@@ -12,7 +12,7 @@ class Game:
     display the piece count, display the player names, update the board, check for a winner, select a piece, move a piece, show available moves, change the turn,
     get the board, and move an AI piece.
     """
-    def __init__(self, win, color, player1, player2):
+    def __init__(self, win, color,player_1_color,player_2_color, player1, player2):
         """
         The init function initializes the Game class with a window, color, player1, and player2, and sets the turn start time and turn timeout. The text color is set to white,
         and the urgent text color is set to red. The screen is set to the window size, and the player names are set to player1 and player2.
@@ -21,8 +21,10 @@ class Game:
         self.turn_timeout = 5200  # 5.2 seconds per turn
         self.win = win
         self.color = color
+        self.player_1_color = player_1_color
+        self.player_2_color = player_2_color
         self.selected = None
-        self.board = Main_Board(self.color)
+        self.board = Main_Board(player_1_color,player_2_color,self.color)
         self.turn = RED
         self.valid_moves = {}
         self.font = pygame.font.Font(None, 36)  # Font for rendering text
@@ -53,10 +55,10 @@ class Game:
         """
         The display turn function displays the current turn on the screen.
         """
-        if self.turn == RED:
-            text = f"Current Turn: RED"
+        if self.turn == self.player_1_color:
+            text = f"Current Turn: Player 1"
         else:
-            text = f"Current Turn: WHITE"
+            text = f"Current Turn: Player 2"
         text_surface = self.font.render(text, True, self.text_color)
         self.screen.blit(text_surface, (715, 100))
 
@@ -64,8 +66,8 @@ class Game:
         """
         The display piece count function displays the piece count on the screen.
         """
-        text = f"RED Pieces Left: {self.board.red_left}"
-        text2 = f"WHITE Pieces Left: {self.board.white_left}"
+        text = f"Player 1 Pieces Left: {self.board.player_1_left}"
+        text2 = f"Player 2 Pieces Left: {self.board.player_2_left}"
         text_surface = self.font.render(text, True, self.text_color)
         text_surface2 = self.font.render(text2, True, self.text_color)
         self.screen.blit(text_surface, (715, 150))
@@ -151,10 +153,10 @@ class Game:
         """
         self.valid_moves = {}
         self.turn_start_time = pygame.time.get_ticks()  # Reset the turn timer
-        if self.turn == RED:
-            self.turn = WHITE
+        if self.turn == self.player_1_color:
+            self.turn = self.player_2_color
         else:
-            self.turn = RED
+            self.turn = self.player_1_color
 
     def get_board(self): 
         """
