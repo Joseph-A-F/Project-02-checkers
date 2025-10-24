@@ -619,21 +619,21 @@ def board_customization():
                 if green_square_rect.collidepoint(event.pos): # make board green
                     second_menu_instance.color = GREEN
                 if player_1_red_square_rect.collidepoint(event.pos): # make player_1 red
-                    second_menu_instance.color = RED
+                    second_menu_instance.player_1_color = RED
                 if player_1_blue_square_rect.collidepoint(event.pos): # make player_1 blue
-                    second_menu_instance.color = BLUE
+                    second_menu_instance.player_1_color = BLUE
                 if player_1_yellow_square_rect.collidepoint(event.pos): # make player_1 yellow
-                    second_menu_instance.color = YELLOW
+                    second_menu_instance.player_1_color = YELLOW
                 if player_1_green_square_rect.collidepoint(event.pos): # make player_1 green
-                    second_menu_instance.color = GREEN
+                    second_menu_instance.player_1_color = GREEN
                 if player_2_red_square_rect.collidepoint(event.pos): # make player_2 red
-                    second_menu_instance.color = RED
+                    second_menu_instance.player_2_color = RED
                 if player_2_blue_square_rect.collidepoint(event.pos): # make player_2 blue
-                    second_menu_instance.color = BLUE
+                    second_menu_instance.player_2_color = BLUE
                 if player_2_yellow_square_rect.collidepoint(event.pos): # make player_2 yellow
-                    second_menu_instance.color = YELLOW
+                    second_menu_instance.player_2_color = YELLOW
                 if player_2_green_square_rect.collidepoint(event.pos): # make player_2 green
-                    second_menu_instance.color = GREEN
+                    second_menu_instance.player_2_color = GREEN
             elif event.type == SONG_END:
                 music_loop()
 
