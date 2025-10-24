@@ -7,7 +7,7 @@ import pygame
 from Player import Player
 from Player import user_scores
 from ScoreManager import ScoreManager
-from constants import RED, SQUARE_SIZE, WHITE
+from constants import BLACK, BLUE, RED, SQUARE_SIZE, WHITE
 from game import Game
 from computer import minimax
 from MusicClass import BackgroundMusic
@@ -43,9 +43,13 @@ class SecondMenu:
     
     def __init__(self, track):
         self.selected_music_track = track
+        
+        
         self.background_music = BackgroundMusic([track])
     
     color = RED
+    player_1_color = RED
+    player_2_color = WHITE
     def start_game_menu(self):
         """
         The start game menu function displays the second menu of the game, which allows the user to choose between playing against another player or against the computer.
@@ -59,6 +63,7 @@ class SecondMenu:
         credits1 = "Developed by Wander Cerda-Torres, Barry Lin,"
         credits2 = "Nathan McCourt, Jonathan Stanczak, and Geonhee Yu"
         credits_font = pygame.font.Font(None, 25)
+        
 
         # Credits text
         credits_text1 = credits_font.render(credits1, True, (255, 255, 255))
@@ -193,7 +198,7 @@ class SecondMenu:
         """
         run = True
         clock = pygame.time.Clock()
-        game = Game(screen, self.color, player1_name.username, player2_name.username)
+        game = Game(screen, self.color,self.player_1_color,self.player_2_color, player1_name.username, player2_name.username)
         global score_manager, user_scores
 
         # Exit Button
@@ -240,7 +245,7 @@ class SecondMenu:
         """
         run = True
         clock = pygame.time.Clock()
-        game = Game(screen, self.color, player1_name.username, "Computer")
+        game = Game(screen, self.color,self.player_1_color,self.player_2_color, player1_name.username, "Computer")
         global score_manager, user_scores
 
         # Exit Button

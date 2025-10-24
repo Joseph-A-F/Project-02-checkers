@@ -13,14 +13,16 @@ class Main_Board:
     evaluate the board, get all pieces, get a single piece, move a piece (left or right), create the board, draw the board, 
     remove a piece, and check for a winner.
     """
-    def __init__(self, color):
+    def __init__(self, player_1_color, player_2_color, color):
         """
         The init function initializes the Main_Board class with a color and creates the board.
         """
         self.board = []
         self.color = color
-        self.red_left = self.white_left = 12
-        self.red_kings = self.white_kings = 0
+        self.player_1_color = player_1_color
+        self.player_2_color = player_2_color
+        self.player_1_left = self.player_2_left = 12
+        self.player_1_kings = self.player_2_kings = 0
         self.create_board()
     
     def draw_squares(self, win):
@@ -36,7 +38,7 @@ class Main_Board:
         """
         The evaluate function evaluates the board to see who is winning and returns the score.
         """
-        return self.white_left - self.red_left + (self.white_kings * 0.5 - self.red_kings * 0.5)
+        return self.player_2_left - self.player_1_left + (self.player_2_kings * 0.5 - self.player_1_kings * 0.5)
 
     def get_all_pieces(self, color):
         """
@@ -57,10 +59,10 @@ class Main_Board:
         piece.move(row, col)
         if row == ROWS - 1 or row == 0:
             piece.make_king()
-            if piece.color == WHITE:
-                self.white_kings += 1
+            if piece.color == self.player_2_color:
+                self.player_2_kings += 1
             else:
-                self.red_kings += 1 
+                self.player_1_kings += 1 
 
     def get_piece(self, row, col): 
         """
@@ -80,9 +82,9 @@ class Main_Board:
             for col in range(COLS):
                 if col % 2 == ((row +  1) % 2):
                     if row < 3:
-                        self.board[row].append(Piece(row, col, WHITE))
+                        self.board[row].append(Piece(row, col, self.player_2_color))
                     elif row > 4:
-                        self.board[row].append(Piece(row, col, RED))
+                        self.board[row].append(Piece(row, col, self.player_1_color))
                     else:
                         self.board[row].append(0)
                 else:
@@ -106,20 +108,20 @@ class Main_Board:
         for piece in pieces:
             self.board[piece.row][piece.col] = 0
             if piece != 0:
-                if piece.color == RED:
-                    self.red_left -= 1
+                if piece.color == self.player_1_color:
+                    self.player_1_left -= 1
                 else:
-                    self.white_left -= 1
+                    self.player_2_left -= 1
     
     def winner(self): 
         """
         The winner function checks if a winner has been found and returns the winner. If no winner has been found, None is returned.
         If a user has no pieces left or no moves left, the other user is the winner.
         """
-        if self.red_left <= 0 or self.no_moves(RED):
-            return WHITE
-        elif self.white_left <= 0 or self.no_moves(WHITE):
-            return RED
+        if self.player_1_left <= 0 or self.no_moves(self.player_1_color):
+            return self.player_2_color
+        elif self.player_2_left <= 0 or self.no_moves(self.player_2_color):
+            return self.player_1_color
         
         return None 
     
@@ -131,10 +133,10 @@ class Main_Board:
         left = piece.col - 1
         right = piece.col + 1
         row = piece.row
-        if piece.color == RED or piece.king:
+        if piece.color == self.player_1_color or piece.king:
             moves.update(self.move_left(row -1, max(row-3, -1), -1, piece.color, left))
             moves.update(self.move_right(row -1, max(row-3, -1), -1, piece.color, right))
-        if piece.color == WHITE or piece.king:
+        if piece.color == self.player_2_color or piece.king:
             moves.update(self.move_left(row +1, min(row+3, ROWS), 1, piece.color, left))
             moves.update(self.move_right(row +1, min(row+3, ROWS), 1, piece.color, right))
 
